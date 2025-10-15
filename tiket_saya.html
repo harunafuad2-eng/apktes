@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiket Saya - Event App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f8fc;
+        }
+        .footer-shadow {
+            box-shadow: 0 -4px 30px -5px rgba(0, 0, 0, 0.06);
+        }
+        /* Custom style for the ticket shape */
+        .ticket-shape {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        .ticket-shape::before, .ticket-shape::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #f7f8fc;
+        }
+        .ticket-shape::before {
+            left: -12px;
+            transform: translateY(-50%);
+        }
+        .ticket-shape::after {
+            right: -12px;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <div class="relative w-full md:max-w-2xl mx-auto bg-gray-50 min-h-screen pb-28">
+        
+        <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-30">
+            <div class="flex items-center px-4 py-5">
+                <a href="dashboard.html" class="text-gray-500 mr-4 p-2 rounded-full hover:bg-gray-100 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+                </a>
+                <h1 class="text-xl font-extrabold text-gray-900">Tiket Saya</h1>
+            </div>
+        </header>
+
+        <main class="p-4">
+            <!-- Filter Tabs -->
+            <div class="mb-6 flex space-x-2 p-1 bg-gray-200 rounded-xl">
+                <button class="tab-btn flex-1 py-2 px-4 text-sm font-semibold text-white bg-indigo-600 rounded-lg shadow" data-status="active">Tiket Aktif</button>
+                <button class="tab-btn flex-1 py-2 px-4 text-sm font-semibold text-gray-600 hover:bg-gray-300 rounded-lg transition-colors" data-status="pending">Menunggu Pembayaran</button>
+            </div>
+
+            <div id="ticket-list" class="space-y-6"></div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="hidden text-center py-16">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 mx-auto text-gray-300"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-12v.75m0 3v.75m0 3v.75m0 3V18m-3-12h15M5.25 6h13.5m-13.5 3h13.5m-13.5 3h13.5m-13.5 3h13.5" /></svg>
+                <h3 class="mt-4 text-lg font-bold text-gray-800">Belum Ada Tiket</h3>
+                <p class="mt-1 text-sm text-gray-500">Sepertinya Anda belum memiliki tiket. <br>Ayo jelajahi event seru!</p>
+                <a href="dashboard.html" class="mt-6 inline-block bg-indigo-600 text-white font-semibold py-2 px-5 rounded-lg shadow-md hover:bg-indigo-700 transition-colors">Cari Event</a>
+            </div>
+        </main>
+
+        <footer class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm footer-shadow z-40">
+            <div class="max-w-2xl mx-auto flex justify-around items-center h-20">
+                <a href="dashboard.html" class="text-center text-gray-400 hover:text-indigo-600 transition-colors" aria-label="Beranda">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 mx-auto"><path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 011.06 0l7.5 7.5a.75.75 0 11-1.06 1.06l-6.22-6.22V21a.75.75 0 01-1.5 0V4.81L4.97 11.03a.75.75 0 01-1.06-1.06l7.5-7.5z" clip-rule="evenodd" /></svg>
+                    <span class="block mt-1 text-xs font-semibold">Beranda</span>
+                </a>
+                <a href="berita.html" class="text-center text-gray-400 hover:text-indigo-600 transition-colors" aria-label="Arsip">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 mx-auto"><path fill-rule="evenodd" d="M2.25 6a3 3 0 013-3h13.5a3 3 0 013 3v12a3 3 0 01-3 3H5.25a3 3 0 01-3-3V6zm1.5 9.75a.75.75 0 01.75-.75h13.5a.75.75 0 01.75.75v2.25a.75.75 0 01-.75.75H5.25a.75.75 0 01-.75-.75v-2.25zm.75-6a.75.75 0 000 1.5h13.5a.75.75 0 000-1.5H4.5z" clip-rule="evenodd" /></svg>
+                    <span class="block mt-1 text-xs font-semibold">Arsip</span>
+                </a>
+                <a href="tiket_saya.html" class="text-center text-indigo-600" aria-label="Tiket">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 mx-auto"><path fill-rule="evenodd" d="M1.5 6.75a3 3 0 003 3h1.372c.86 0 1.61.586 1.854 1.396.247.81.71 1.533 1.399 2.001.689.468 1.51.604 2.322.388.814-.215 1.579-.807 2.134-1.605.556-.798.87-1.767.97-2.737h1.372c.827 0 1.5-.673 1.5-1.5V4.5a3 3 0 00-3-3H4.5a3 3 0 00-3 3v2.25zM1.5 16.5a3 3 0 003 3h1.372c.86 0 1.61.586 1.854 1.396.247.81.71 1.533 1.399 2.001.689.468 1.51.604 2.322.388.814-.215 1.579-.807 2.134-1.605.556-.798.87-1.767.97-2.737h1.372c.827 0 1.5-.673 1.5-1.5V18a3 3 0 00-3-3H4.5a3 3 0 00-3 3v-1.5z" clip-rule="evenodd" /></svg>
+                    <span class="block mt-1 text-xs font-bold">Tiket</span>
+                </a>
+                <a href="kalender.html" class="text-center text-gray-400 hover:text-indigo-600 transition-colors" aria-label="Kalender">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 mx-auto"><path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6.75V3a.75.75 0 01.75-.75zm10.5 6a1.5 1.5 0 00-1.5 1.5v6a1.5 1.5 0 001.5 1.5h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a3 3 0 01-3-3V9.75a3 3 0 013-3h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75zM12 9.75a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zM8.25 9.75a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75z" clip-rule="evenodd" /></svg>
+                    <span class="block mt-1 text-xs font-semibold">Kalender</span>
+                </a>
+                <a href="profil.html" class="text-center text-gray-400 hover:text-indigo-600 transition-colors" aria-label="Profil">
+                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 mx-auto"><path fill-rule="evenodd" d="M18.685 19.021A8.25 8.25 0 0012 2.25C8.516 2.25 5.347 4.494 4.021 7.765a.75.75 0 00.154.787l.027.042a.75.75 0 00.91.247c1.566-.438 3.12-.997 4.632-1.743a.75.75 0 11.758 1.377 24.002 24.002 0 01-4.632 1.743.75.75 0 00-.91-.247l-.027-.042a.75.75 0 00-.154-.787C5.347 4.494 8.516 2.25 12 2.25c3.484 0 6.653 2.244 7.979 5.515a.75.75 0 00-.154.787l-.027.042a.75.75 0 00-.91.247c-1.566-.438-3.12-.997-4.632-1.743a.75.75 0 11-.758 1.377 24.002 24.002 0 014.632 1.743.75.75 0 00.91.247l.027.042a.75.75 0 00.154-.787C18.653 4.494 15.484 2.25 12 2.25zM12 12.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5zM12 15.75a7.5 7.5 0 00-7.5 7.5h15a7.5 7.5 0 00-7.5-7.5z" clip-rule="evenodd" /></svg>
+                    <span class="block mt-1 text-xs font-semibold">Profil</span>
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal Upload Bukti -->
+    <div id="upload-proof-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-4">Upload Bukti Pembayaran</h3>
+            <p class="text-sm text-gray-500 mb-6">Pilih gambar screenshot bukti pembayaran Anda untuk diverifikasi oleh sistem.</p>
+            
+            <label for="file-upload" class="w-full border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-6 cursor-pointer hover:bg-gray-50 transition-colors block">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto text-gray-400"><path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" /></svg>
+                <p class="mt-2 text-sm text-gray-600">Klik untuk memilih file</p>
+                <input id="file-upload" type="file" class="hidden" />
+            </label>
+
+            <div class="space-y-3">
+                <button id="upload-confirm-btn" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition-colors">
+                    Upload & Konfirmasi
+                </button>
+                <button onclick="closeUploadModal()" class="w-full bg-gray-100 text-gray-700 font-bold py-3 rounded-lg hover:bg-gray-200 transition-colors">
+                    Batal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ... (JavaScript yang ada tetap sama)
+    </script>
+</body>
+</html>
